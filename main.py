@@ -9,7 +9,7 @@ bot = commands.Bot(command_prefix="a.")
 
 client = discord.Client()
 
-TOKEN = "NzcxOTM3OTI0NjkwMjE0OTIz.X5zZNw.Kr91XPxtRmJp_xhTx0XPkvNuIko"
+TOKEN = "NzcxOTM3OTI0NjkwMjE0OTIz.X5zZNw.2mtRMWoe1JVqZUXi4PRMmeGoCL4"
 
 @bot.event
 async def on_ready():
