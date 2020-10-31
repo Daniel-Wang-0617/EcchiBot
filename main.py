@@ -14,7 +14,7 @@ TOKEN = ""
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
- 
+
 @bot.event
 async def on_member_join(member):
     await member.create_dm()
