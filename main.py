@@ -55,7 +55,7 @@ async def random_anime_quote(ctx):
     #also what pfp do you want the bot to have
     #m lemme find something good :smirk:
     #https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.explicit.bing.net%2Fth%3Fid%3DOIP.p-nwxqqBMVzONXMaFGSajgHaEK%26pid%3DApi&f=1
-    
+
     response = random.choice(quotes)
     await ctx.send(response)
 
