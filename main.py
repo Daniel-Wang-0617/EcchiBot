@@ -39,7 +39,7 @@ async def on_member_remove(member):
 
 
 @bot.command(name="pic", help="gives a nice ecchi pic")
-async def random_anime_quote(ctx):
+async def pic(ctx):
     links = [
     "https://external-preview.redd.it/JFE4Jek_WZNlBLyJtvw_moBgMfU6jjCeXBkTcBtzOwU.jpg?width=640&crop=smart&auto=webp&s=ca8cff352d7ef60ecd68e19679e7d488b7099509",
     "https://preview.redd.it/g6894skzkom41.png?width=640&crop=smart&auto=webp&s=e36ddbe2fe2e2fe9a972cd0069e8ce3a463dcb5c",
@@ -51,11 +51,24 @@ async def random_anime_quote(ctx):
     await ctx.send(response)
 
 @bot.command(name="sauce", help="gives sauce :smirk:")
-async def random_anime_quote(ctx):
-    sauce = (("https://imgur.com/a/x4qYloJ#keyug9l", 279963),("https://imgur.com/a/XIYB71N", 286444))
+async def sauce(ctx):
+    sauce = [
+    ("https://imgur.com/a/x4qYloJ#keyug9l", 279963),
+    ("https://imgur.com/a/XIYB71N", 286444),
+    ]
     response = random.choice(sauce)
     await ctx.send(response[0])
     await ctx.send("Sauce: " + str(response[1]))
+
+@bot.command(name="hentai", help="gives sauce in a video format")
+async def sauce(ctx):
+    hentai = [
+    ("https://hanime.tv/videos/hentai/aku-no-onna-kanbu-full-moon-night-r-1", "Aku no Onna Kanbu: Full Moon Night R 1"),
+    ("https://hanime.tv/videos/hentai/isekai-harem-monogatari-2", "Isekai Harem Monogatari 2")
+    ]
+    response = random.choice(hentai)
+    await ctx.send(response[0])
+    await ctx.send("Sauce: " + response[1])
 
 
 
