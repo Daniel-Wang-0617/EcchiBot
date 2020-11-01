@@ -7,7 +7,7 @@ from discord.ext import commands
 
 bot = commands.Bot(command_prefix="e.")
 
-TOKEN = "NzcxOTM3OTI0NjkwMjE0OTIz.X5zZNw.wszYqlaNpLV057poJWM-MxsAUmk"
+TOKEN = "NzcxOTM3OTI0NjkwMjE0OTIz.X5zZNw.aHF9QvKeQ5G3xNRhmRBV4COdKgE"
 
 @bot.event
 async def on_ready():
@@ -41,7 +41,7 @@ async def on_message(message):
     if message.author == bot.user:
         return
     if "im" in message.content:
-        responseIndex = message.content.find("im")
+        responseIndex = message.content.find("im")[2:]
         await message.channel.send("Hi " + message.content[responseIndex:] + ", I'm Jack")
 
 @bot.command(name="pic", help="gives a nice ecchi pic")
