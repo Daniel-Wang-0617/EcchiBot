@@ -7,7 +7,7 @@ from discord.ext import commands
 
 bot = commands.Bot(command_prefix="e.")
 
-TOKEN = "NzcxOTM3OTI0NjkwMjE0OTIz.X5zZNw.aHF9QvKeQ5G3xNRhmRBV4COdKgE"
+TOKEN = ""
 
 @bot.event
 async def on_ready():
@@ -41,7 +41,7 @@ async def on_message(message):
     if message.author == bot.user:
         return
     if "im" in message.content:
-        responseIndex = message.content.find("im")[2:]
+        responseIndex = message.content.find("im")
         await message.channel.send("Hi " + message.content[responseIndex:] + ", I'm Jack")
 
 @bot.command(name="pic", help="gives a nice ecchi pic")
@@ -75,9 +75,5 @@ async def sauce(ctx):
     response = random.choice(hentai)
     await ctx.send(response[0])
     await ctx.send("Sauce: " + response[1])
-
-
-
-
 
 bot.run(TOKEN)
