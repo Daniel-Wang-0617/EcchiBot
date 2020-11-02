@@ -11,6 +11,7 @@ TOKEN = ""
 
 @bot.event
 async def on_ready():
+    await bot.change_presence(status=discord.Status.idle, activity=discord.Game('with my dxe'))
     print(f'{bot.user.name} has connected to Discord!')
 
 @bot.event
