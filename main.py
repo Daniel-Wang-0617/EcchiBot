@@ -110,8 +110,4 @@ async def sauce(ctx):
     await ctx.send(response[0])
     await ctx.send("Sauce: " + response[1])
 
-
-
-
-
 bot.run(TOKEN)
