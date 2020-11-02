@@ -9,9 +9,21 @@ bot = commands.Bot(command_prefix="e.")
 
 TOKEN = ""
 
+# #Create a variable that contains all the servers
+# activeServers = discord.Client.guilds
+# #Create a variable to store amount of members per server
+# numPeople = 0
+# #Loop through the servers, get all members and add them up
+# for s in bot.servers:
+#     numPeople += len(s.members)
+
 @bot.event
 async def on_ready():
-    await bot.change_presence(status=discord.Status.idle, activity=discord.Game('with my dxe'))
+    numPeople = 0
+    for server in bot.guilds:
+        for member in server.members:
+            numPeople+=1
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="{} people fail NNN".format(numPeople)))
     print(f'{bot.user.name} has connected to Discord!')
 
 @bot.event
