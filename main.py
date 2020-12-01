@@ -54,19 +54,7 @@ async def on_member_remove(member):
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
-    # sent = False
-    # if(sent==False):
-    #     await message.channel.send("Hi. How are you?")
-    #     sent = True
-    # if message.author == bot.user:
-    #     return
-    # if "shitij" in message.content.lower():
-    #     print(message.content)
-    # if "bot" in message.content.lower():
-    #     print(message.content)
-    # if "e." in message.content.lower():
-    #     print(message.content)
-    # print(message.content)
+    
 
 usedLinks = []
 usedSauce = []
