@@ -21,10 +21,7 @@ hot_ecchi = subreddit.hot()
 
 @bot.event
 async def on_ready():
-    numPeople = 0
-    for server in bot.guilds:
-        numPeople +=len(server.members)
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="{} people fail NNN".format(numPeople)))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="with my dxe"))
     print(f'{bot.user.name} has connected to Discord!')
 
 
@@ -48,13 +45,13 @@ async def on_command_error(ctx, error):
 
 @bot.event
 async def on_member_remove(member):
-  print(f'(member) has left server :cri:')
+  print(f'{member} has left server :cri:')
 
 
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
-    
+
 
 usedLinks = []
 usedSauce = []
