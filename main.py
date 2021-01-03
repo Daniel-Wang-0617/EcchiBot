@@ -9,8 +9,6 @@ from discord.ext import commands
 
 bot = commands.Bot(command_prefix="e.")
 
-#client = discord.Client()
-
 TOKEN = ""
 
 reddit = praw.Reddit(client_id = 'C0EVE0NpVGV8PQ', client_secret = 'pMwTwwG96WWCwSvt5Qjajmd3BI4s7A', username = 'EcchiBot', password = 'ecchibot', user_agent = 'EcchiBot')
@@ -182,5 +180,45 @@ async def sauce(ctx):
     response = random.choice(hentai)
     await ctx.send(response[0])
     await ctx.send("Sauce: " + response[1])
+
+@bot.command(name="schedule", help="prints the titles of anime that are airing on a given day at JST time")
+async def schedule(ctx, day):
+  url = f"https://jikan1.p.rapidapi.com/schedule/{day}"
+
+  params = {"format": "json"}
+
+  headers = {
+    'x-rapidapi-host': "jikan1.p.rapidapi.com",
+      'x-rapidapi-key': "e70f6faedemsh1bf61b13a1ec429p1da9d3jsn73fc3e3b1f9f"
+  }
+
+  response = requests.request("GET", url, headers=headers, params=params).json()
+
+  response_list = response[str(day)]
+
+  title_list = []
+
+  for n in range(0, len(response_list)):
+    title_list.append(response_list[n]["title"])
+
+  await ctx.send(title_list)
+
+@bot.command(name="search", help="searches info of medium given. to make search more accurate, don\'t include spaces.")
+async def search(ctx, medium, title):
+  url = f"https://jikan1.p.rapidapi.com/search/{medium}"
+
+  params = {"q": str(title), "format": "json"}
+
+  headers = {
+    'x-rapidapi-host': "jikan1.p.rapidapi.com",
+      'x-rapidapi-key': "e70f6faedemsh1bf61b13a1ec429p1da9d3jsn73fc3e3b1f9f"
+  }
+
+  response = requests.request("GET", url, headers=headers, params=params).json()
+
+  response_list = response["results"][0]
+
+  await ctx.send(response_list)
+
 
 bot.run(TOKEN)
