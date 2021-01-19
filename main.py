@@ -9,8 +9,6 @@ from discord.ext import commands
 
 bot = commands.Bot(command_prefix="e.")
 
-#client = discord.Client()
-
 TOKEN = ""
 
 reddit = praw.Reddit(client_id = 'C0EVE0NpVGV8PQ', client_secret = 'pMwTwwG96WWCwSvt5Qjajmd3BI4s7A', username = 'EcchiBot', password = 'ecchibot', user_agent = 'EcchiBot')
@@ -24,10 +22,7 @@ subreddit_tits = reddit.subreddit('BigAnimeTiddies')
 
 @bot.event
 async def on_ready():
-    numPeople = 0
-    for server in bot.guilds:
-        numPeople +=len(server.members)
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="{} people fail NNN".format(numPeople)))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="with my dxe"))
     print(f'{bot.user.name} has connected to Discord!')
 
 
@@ -52,25 +47,13 @@ async def on_command_error(ctx, error):
 
 @bot.event
 async def on_member_remove(member):
-  print(f'(member) has left server :cri:')
+  print(f'{member} has left server :cri:')
 
 
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
-    # sent = False
-    # if(sent==False):
-    #     await message.channel.send("Hi. How are you?")
-    #     sent = True
-    # if message.author == bot.user:
-    #     return
-    # if "shitij" in message.content.lower():
-    #     print(message.content)
-    # if "bot" in message.content.lower():
-    #     print(message.content)
-    # if "e." in message.content.lower():
-    #     print(message.content)
-    # print(message.content)
+
 
 usedLinks = []
 usedSauce = []
