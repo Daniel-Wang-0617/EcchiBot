@@ -6,10 +6,12 @@ import asyncio
 import time
 import praw
 from discord.ext import commands
+from reactions import *
+from nhentai import *
 
 bot = commands.Bot(command_prefix="e.")
 
-TOKEN = ""
+TOKEN = "NzcxOTM3OTI0NjkwMjE0OTIz.X5zZNw.kj0G8Zjz8L11CqV-yaJ7H0TbZyg"
 
 reddit = praw.Reddit(client_id = 'C0EVE0NpVGV8PQ', client_secret = 'pMwTwwG96WWCwSvt5Qjajmd3BI4s7A', username = 'EcchiBot', password = 'ecchibot', user_agent = 'EcchiBot')
 
@@ -53,10 +55,16 @@ async def on_member_remove(member):
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
-
-
-usedLinks = []
-usedSauce = []
+    content = message.content
+    if(message.author == bot.user):
+        return
+    if(message.author in mutedList):
+        await message.delete()
+    if("dick" in content.lower()):
+        await react_eggplant(message)
+        await message.channel.send("Suck my dick m")
+        return
+    
 piclinks =[]
 hotlinks = []
 hotthighlinks = []
@@ -64,33 +72,40 @@ topthighlinks = []
 solinks = []
 titlinks = []
 
+mutedList = []
+
 for item in reddit.user.me().saved(limit=None):
     piclinks.append(item)
 
+
+@bot.command(name="sauceme", help="Get random sauce")
+async def sauceme(ctx):
+    await random_sauce(ctx)
+
+@bot.command(name="mute", help="mute yourself")
+async def mute(ctx):
+    mutedList.append(ctx.author)
+    await ctx.send("You are now muted")
+
+@bot.command(name="unmute", help= "Unmute yourself")
+async def unmute(ctx):
+    if(ctx.author in mutedList):
+        mutedList.remove(ctx.author)
+        await ctx.send("You are now unmuted")
+    else:
+        await ctx.send("You are not muted")
 
 @bot.command(name="hotpic", help="gives a nice ecchi pic")
 async def pic(ctx):
     hot_ecchi = subreddit_ecchi.hot(limit=50)
     for item in hot_ecchi:
         hotlinks.append(item)
-    if(len(usedLinks)>15):
-        usedLinks.pop(0)
     response = random.choice(hotlinks)
-    while(response in usedLinks):
-        response = random.choice(hotlinks)
-    usedLinks.append(response)
-    print(response.url)
     await ctx.send(response.url)
 
 @bot.command(name="pic", help="gives a nice ecchi pic")
 async def pic(ctx):
-    if(len(usedLinks)>15):
-        usedLinks.pop(0)
     response = random.choice(piclinks)
-    while(response in usedLinks):
-        response = random.choice(piclinks)
-    usedLinks.append(response)
-    print(response.url)
     await ctx.send(response.url)
 
 @bot.command(name="hotthigh", help="gives a nice thigh pic")
@@ -98,12 +113,7 @@ async def pic(ctx):
     hot_thigh = subreddit_thighdeology.hot(limit=50)
     for item in hot_thigh:
         hotthighlinks.append(item)
-    if(len(usedLinks)>15):
-        usedLinks.pop(0)
     response = random.choice(hotthighlinks)
-    while(response in usedLinks):
-        response = random.choice(hotthighlinks)
-    usedLinks.append(response)
     await ctx.send(response.url)
 
 @bot.command(name="thigh", help="gives a top thigh pic")
@@ -111,12 +121,7 @@ async def pic(ctx):
     hot_thigh = subreddit_thighdeology.top(limit=100)
     for item in hot_thigh:
         topthighlinks.append(item)
-    if(len(usedLinks)>15):
-        usedLinks.pop(0)
     response = random.choice(topthighlinks)
-    while(response in usedLinks):
-        response = random.choice(topthighlinks)
-    usedLinks.append(response)
     await ctx.send(response.url)
 
 @bot.command(name="so", help="Sara Orrego pic")
@@ -124,12 +129,7 @@ async def pic(ctx):
     hot_sara = subreddit_so.top(limit=100)
     for item in hot_sara:
         solinks.append(item)
-    if(len(usedLinks)>15):
-        usedLinks.pop(0)
     response = random.choice(solinks)
-    while(response in usedLinks):
-        response = random.choice(hotgiflinks)
-    usedLinks.append(response)
     await ctx.send(response.url)
 
 @bot.command(name="tits", help="Big Anime Tits")
@@ -137,18 +137,12 @@ async def pic(ctx):
     top_tits = subreddit_tits.top(limit = 100)
     for item in top_tits:
         titlinks.append(item)
-    if(len(usedLinks)>15):
-        usedLinks.pop(0)
     response = random.choice(titlinks)
-    while(response in usedLinks):
-        response = random.choice(titlinks)
     usedLinks.append(response)
     await ctx.send(response.url)
 
 @bot.command(name="sauce", help="gives sauce :smirk:")
 async def sauce(ctx):
-    if(len(usedSauce)>5):
-        usedSauce.pop(0)
     sauce = [
     ("https://imgur.com/a/x4qYloJ#keyug9l", 279963, "After Relentlessly Cumming Inside a Runaway Gyaru, We Started Living Together as Fuck Buddies"),
     ("https://imgur.com/a/XIYB71N", 286444, "Muramata-san's secret"),
@@ -162,9 +156,6 @@ async def sauce(ctx):
     ("https://imgur.com/a/rE3hcVs", 318224, "It's So Hot That My Girlfriend Has To Blow Me Down"),
     ]
     response = random.choice(sauce)
-    while(response in usedSauce):
-        response = random.choice(sauce)
-    usedSauce.append(response)
     await ctx.send(response[0])
     await ctx.send("Sauce: " + str(response[1]))
     await ctx.send("Title: " + response[2])
